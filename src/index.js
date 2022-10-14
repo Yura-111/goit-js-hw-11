@@ -80,9 +80,7 @@ function makeMarkup(data) {
     } else {
     markup(data);
     showLoadMoreBtn();
-    console.dir(data);
     const target = document.querySelector('.photo-card:last-child');
-    console.log(target);
     io.observe(target);
     }
 }
