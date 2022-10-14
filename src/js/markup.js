@@ -7,8 +7,7 @@ export default function markupElem({
     downloads,
     views,
 }) {
-    return `
-    <li class="photo-card">
+    return `<li class="photo-card">
     <a class="photo-card__link" href="${largeImageURL}" >
         <img src="${webformatURL}" alt="${tags}" loading="lazy" />
         <div class="info">
@@ -26,5 +25,5 @@ export default function markupElem({
             </p>
         </div>
         </a>
-        </li> `;
+        </li>`;
 }

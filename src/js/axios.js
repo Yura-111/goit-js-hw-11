@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+axios.defaults.baseURL = 'https://pixabay.com/api/';
+// axios.defaults.headers.common['Authorization'] = '30543774-85dcbe3a92a7223df43425301';
 
 export default class PixabayAPI {
     constructor() {
@@ -8,7 +10,7 @@ export default class PixabayAPI {
     }
 
     async fetchImages() {
-    const config = {
+    const configPix = {
         URL: 'https://pixabay.com/api/',
         key: '30543774-85dcbe3a92a7223df43425301',
         per_page: 40,
@@ -19,7 +21,9 @@ export default class PixabayAPI {
 
     try {
         const response = await axios.get(
-        `${config.URL}?key=${config.key}&q=${this.searchQuery}&page=${this.page}&per_page=${config.per_page}&image_type=${config.image_type}&orientation=${config.orientation}&safesearch=${config.safesearch}`
+        `${configPix.URL}?key=${configPix.key}&q=${this.searchQuery}&page=${this.page
+        }&per_page=${configPix.per_page}&image_type=${configPix.image_type}&orientation=${configPix.orientation
+        }&safesearch=${configPix.safesearch}`
         );
 
         if (response.data.total === 0) {

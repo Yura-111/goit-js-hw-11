@@ -5,13 +5,27 @@ import { refs } from './js/refs';
 import PixabayAPI from './js/axios'
 import markupElem from './js/markup';
 
-
 const pixabay = new PixabayAPI();
-
 const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
 });
+
+const options = {
+    root: null,
+    rootMargin: '100px',
+    threshold: 1.0
+}
+const callback = function(entries, observer) {
+    entries.forEach(entry => {
+        if(entry.isIntersecting && entry.intersectionRect.bottom > 400) {
+            fetchImages();
+            hideLoadMoreBtn()
+            observer.unobserve(entry.target);
+        }
+    });
+};
+const io = new IntersectionObserver(callback, options);
 
 async function onSearchSubmit(event) {
     event.preventDefault();
@@ -20,6 +34,7 @@ async function onSearchSubmit(event) {
     pixabay.resetPage();
 
     pixabay.query = event.currentTarget.elements.searchQuery.value;
+    
 
     refs.loadMoreBtn.classList.add('is-hidden');
     refs.submitBtn.classList.add('is-hidden');
@@ -66,8 +81,12 @@ function makeMarkup(data) {
     markup(data);
     showLoadMoreBtn();
     console.dir(data);
+    const target = document.querySelector('.photo-card:last-child');
+    console.log(target);
+    io.observe(target);
     }
 }
+
 
 function smoothScroll() {
     const { height: cardHeight } = document
