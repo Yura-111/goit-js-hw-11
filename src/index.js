@@ -85,7 +85,6 @@ function makeMarkup(data) {
     }
 }
 
-
 function smoothScroll() {
     const { height: cardHeight } = document
     .querySelector('.gallery')
